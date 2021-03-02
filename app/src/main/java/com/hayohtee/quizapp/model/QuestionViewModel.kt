@@ -3,6 +3,7 @@ package com.hayohtee.quizapp.model
 import androidx.lifecycle.ViewModel
 
 class QuestionViewModel: ViewModel() {
+    // List of Question objects
     private val questions = listOf<Question>(
         Question("Is Lagos the capital of Nigeria", false),
         Question("Egypt is in Africa?", true),
@@ -10,6 +11,7 @@ class QuestionViewModel: ViewModel() {
         Question("Crocodile a reptile?", true),
         Question("Sun sets in the East?", false)
     )
+
     private var score = 0
     private var currentIndex = 0
 
@@ -19,6 +21,18 @@ class QuestionViewModel: ViewModel() {
 
     fun getAnswer(): Boolean {
        return questions[currentIndex].answer
+    }
+
+    fun validateQuestion(value: Boolean): Boolean{
+        if (value == getAnswer()){
+            score += 1
+        }
+        return value == getAnswer()
+    }
+
+    fun reset(){
+        score = 0
+        currentIndex = 0
     }
 
     fun nextQuestion(){
