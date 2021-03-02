@@ -3,6 +3,9 @@ package com.hayohtee.quizapp.model
 import androidx.lifecycle.ViewModel
 
 class QuestionViewModel: ViewModel() {
+    private var score = 0
+    private var currentIndex = 0
+
     // List of Question objects
     private val questions = listOf<Question>(
         Question("Is Lagos the capital of Nigeria", false),
@@ -12,8 +15,27 @@ class QuestionViewModel: ViewModel() {
         Question("Sun sets in the East?", false)
     )
 
-    private var score = 0
-    private var currentIndex = 0
+    fun getCurrentIndex(): Int {
+        return currentIndex
+    }
+
+    fun getScore(): Int {
+        return score
+    }
+
+    fun getSize(): Int {
+        return questions.size
+    }
+
+
+    fun incrementCurrentIndex(){
+        currentIndex += 1
+    }
+
+
+    fun incrementScore(){
+        score += 1
+    }
 
     fun getQuestion(): String {
         return questions[currentIndex].questionText
@@ -23,21 +45,9 @@ class QuestionViewModel: ViewModel() {
        return questions[currentIndex].answer
     }
 
-    fun validateQuestion(value: Boolean): Boolean{
-        if (value == getAnswer()){
-            score += 1
-        }
-        return value == getAnswer()
-    }
-
     fun reset(){
         score = 0
         currentIndex = 0
     }
 
-    fun nextQuestion(){
-        if (currentIndex != questions.size - 1){
-            currentIndex += 1
-        }
-    }
 }
